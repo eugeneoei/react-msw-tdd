@@ -11,13 +11,13 @@ export interface UserProfile {
 interface useInitialisationResponse {
     user?: UserProfile | undefined;
     isLoading: boolean;
-    error?: string | undefined;
+    errorMessage?: string | undefined;
 }
 
 export const useInitialisation = (): useInitialisationResponse => {
     const [user, setUser] = useState<UserProfile | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | undefined>(undefined);
+    const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         const getUser = async () => {
@@ -26,13 +26,14 @@ export const useInitialisation = (): useInitialisationResponse => {
                     `${process.env.REACT_APP_API}/auth`
                 );
                 setUser(response.data);
+            } catch (error: any) {
+                setErrorMessage(error.response.data.message);
+            } finally {
                 setIsLoading(false);
-            } catch (error) {
-                setError("Something went wrong while initialising user");
             }
         };
         getUser();
     }, []);
 
-    return { user, isLoading, error };
+    return { user, isLoading, errorMessage };
 };
