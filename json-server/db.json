@@ -1,5 +1,10 @@
 {
     "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
     "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-    "profile": { "name": "typicode" }
+    "auth": {
+        "firstName": "Tony",
+        "lastName": "Parker",
+        "email": "tony.parker@email.com",
+        "avatar": "https://randomuser.me/api/portraits/men/77.jpg"
+    }
 }
