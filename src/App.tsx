@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-// import axios from "axios";
+import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
+import { useInitialisation } from "./hooks/useInitialisation";
 
 const App = () => {
-    const [isInitialising, seItInitialising] = useState(true);
+    const { user, isLoading, errorMessage } = useInitialisation()
 
-    useEffect(() => {
-        setTimeout(async () => {
-            // console.log(await axios.get(`${process.env.REACT_APP_API}/auth`))
-            seItInitialising(false);
-        }, 500);
-    }, []);
-
-    if (isInitialising) {
+    if (isLoading) {
         return (
             <div className="text-center">
                 <span role="progressbar">
@@ -24,6 +16,17 @@ const App = () => {
                 </span>
             </div>
         );
+    }
+
+    if (errorMessage) {
+        return (
+            <div role="alert">
+                <FontAwesomeIcon
+                    icon={faWarning}
+                />
+                <span>{errorMessage}</span>
+            </div>
+        )
     }
 
     return <p>done initialising</p>;
