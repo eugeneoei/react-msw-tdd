@@ -1,4 +1,8 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+    render,
+    screen,
+    waitForElementToBeRemoved
+} from "@testing-library/react";
 import { rest } from "msw";
 import { server } from "./msw/browser";
 import App from "./App";
@@ -7,11 +11,12 @@ describe("App component", () => {
     describe("spinner", () => {
         it("should display spinner on load and disappear when initialisation process completes", async () => {
             render(<App />);
-            const spinner = screen.getByRole("progressbar");
+            let spinner;
+            spinner = screen.getByRole("progressbar");
+
             expect(spinner).toBeInTheDocument();
-            await waitFor(() => {
-                expect(spinner).not.toBeInTheDocument();
-            });
+            await waitForElementToBeRemoved(spinner);
+            expect(spinner).not.toBeInTheDocument();
         });
     });
 
@@ -32,7 +37,6 @@ describe("App component", () => {
             );
 
             render(<App />);
-
             let errorAlert;
 
             // at this point, we expect alert to not exist therefore, "query" command is used
@@ -40,7 +44,7 @@ describe("App component", () => {
             expect(errorAlert).not.toBeInTheDocument();
 
             // at this point, we expect alert to appear async therefore, "find" command is used
-            errorAlert = await screen.findByRole("alert")
+            errorAlert = await screen.findByRole("alert");
             expect(errorAlert).toBeInTheDocument();
 
             const errorMessage = screen.getByText(/An error occurred/i);
@@ -55,6 +59,5 @@ describe("App component", () => {
             const message = await screen.findByText(/done initialising/i);
             expect(message).toBeInTheDocument();
         });
-    })
-
+    });
 });
