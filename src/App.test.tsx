@@ -51,11 +51,9 @@ describe("App component", () => {
     describe("on successful initialisation", () => {
         it('should display "done initialising" message after initialisation process completes', async () => {
             render(<App />);
-            // * https://testing-library.com/docs/dom-testing-library/api-async/#waitfor
-            await waitFor(() => {
-                const message = screen.getByText(/done initialising/i);
-                expect(message).toBeInTheDocument();
-            });
+
+            const message = await screen.findByText(/done initialising/i);
+            expect(message).toBeInTheDocument();
         });
     })
 
