@@ -9,6 +9,7 @@ describe("useInitialisation hook", () => {
             const { result } = renderHook(() => useInitialisation());
 
             expect(result.current.isLoading).toBe(true);
+            // * need to assert change in state otherwise warning
             await waitFor(() => {
                 expect(result.current.isLoading).toBe(false);
             });
