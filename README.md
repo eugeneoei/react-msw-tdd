@@ -1,5 +1,11 @@
 # ReactJS TDD with msw
 
+# Commands - `get`, `query` and `find`
+
+- `get`: expect element to be in DOM
+- `query`: expect element **NOT** to be in DOM
+- `find`: expect element to appear **async** ie **await** is necessary
+
 # Notes
 
 ### Testing custom hooks
