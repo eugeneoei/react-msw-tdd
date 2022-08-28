@@ -1,12 +1,19 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import App from "./App";
 
-describe("App initialisation", () => {
-    it("should display spinner on load", () => {
-        render(<App />);
-        const spinner = screen.getByRole("progressbar");
-        expect(spinner).toBeInTheDocument();
-    });
+describe("App component", () => {
+
+    describe('spinner', () => {
+        it("should display spinner on load and disappear when initialisation process completes", async () => {
+            render(<App />);
+            const spinner = screen.getByRole("progressbar");
+            expect(spinner).toBeInTheDocument();
+            await waitFor(() => {
+                expect(spinner).not.toBeInTheDocument()
+            })
+        });
+    })
+
 
     it('should display "done initialising" message after initialisation process completes', async () => {
         render(<App />);
@@ -15,9 +22,6 @@ describe("App initialisation", () => {
             () => {
                 const message = screen.getByText(/done initialising/i);
                 expect(message).toBeInTheDocument();
-            },
-            {
-                timeout: 3000
             }
         );
     });
