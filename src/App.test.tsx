@@ -33,16 +33,15 @@ describe("App component", () => {
 
             render(<App />);
 
-            const errorAlertOnLoad = screen.queryByRole("alert");
-            expect(errorAlertOnLoad).not.toBeInTheDocument();
+            let errorAlert;
 
-            let errorAlertOnComplete;
-            await waitFor(async () => {
-                errorAlertOnComplete = (await screen.findByRole(
-                    "alert"
-                )) as HTMLDivElement;
-                expect(errorAlertOnComplete).toBeInTheDocument();
-            });
+            // at this point, we expect alert to not exist therefore, "query" command is used
+            errorAlert = screen.queryByRole("alert");
+            expect(errorAlert).not.toBeInTheDocument();
+
+            // at this point, we expect alert to appear async therefore, "find" command is used
+            errorAlert = await screen.findByRole("alert")
+            expect(errorAlert).toBeInTheDocument();
 
             const errorMessage = screen.getByText(/An error occurred/i);
             expect(errorMessage).toBeInTheDocument();
