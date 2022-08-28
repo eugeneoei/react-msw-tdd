@@ -1,38 +1,11 @@
 import { render, waitFor } from "@testing-library/react";
-// import { UserProfile } from "../../hooks/useInitialisation";
-// import { ReactNode } from "react";
 import {
     ILoggedInUserContext,
     LoggedInUserProvider,
     useLoggedInUser
 } from "../useLoggedInUser";
 
-// interface Children {
-//     children: ReactNode
-// }
-
 describe("useLoggedInUserContext", () => {
-    // describe("LoggedInUserProvider", () => {
-    //     it("should have provider its properties to its children", () => {
-    //         const providerProperties = {
-    //             firstName: "Tony",
-    //             lastName: "Stark"
-    //         }
-    //         const ChildrenComponent = (
-    //             <div>
-    //                 <p></p>
-    //                 <p></p>
-    //             </div>
-    //         )
-    //         const wrapper = ({ children } : Children) => (
-    //             <LoggedInUserProvider value={providerProperties}>
-    //                 {children}
-    //             </LoggedInUserProvider>
-    //         );
-
-    //         render(<LoggedInUserProvider />);
-    //     });
-    // });
 
     describe("loggedInUser", () => {
         it("should be undefined on load", async () => {
