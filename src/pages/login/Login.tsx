@@ -1,24 +1,12 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+import { loginSchema } from "../../schemas/loginSchema";
+import { ILoginForm } from "../../interfaces/forms/loginForm";
 import { AlertInput } from "../../ui-components/AlertInput";
 import { useLogin } from "./hooks/useLogin";
-
-export interface ILoginForm {
-    email: string;
-    password: string;
-}
-
-const loginSchema = yup
-    .object({
-        email: yup.string().required("Email is required."),
-        password: yup.string().required("Password is required.")
-    })
-    .required();
 
 const Login = () => {
     const {
@@ -29,13 +17,9 @@ const Login = () => {
         resolver: yupResolver(loginSchema)
     });
 
-    // const [loginData, setLoginData] = useState<ILoginForm | undefined>(undefined)
-    // const [email, setEmail] = useState("")
     const { user, login, isLoginLoading, loginError } = useLogin()
-    // const [isLoading, setIsLoading] = useState(false)
 
     const handleLogin = (data: ILoginForm) => {
-        // setIsLoading(true)
         login(data.email, data.password)
         console.log('>>', data);
     };

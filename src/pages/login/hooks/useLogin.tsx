@@ -1,11 +1,5 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { UserProfile } from '../../../interfaces/userProfile'
-// import { ILoginForm } from "../Login"
-
-// interface IUseLogin {
-//     email?: string
-//     password?: string
-// }
 
 interface IUseLoginResponse {
     user: UserProfile | undefined
@@ -23,10 +17,6 @@ const useLogin = () : IUseLoginResponse => {
         console.log('useLogin hook loggin in function')
         setIsLoginLoading(true)
     }
-
-    // useEffect(() => {
-    //     login()
-    // }, [email, password])
 
     return { user, login, isLoginLoading, loginError }
 }
