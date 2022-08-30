@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { AlertInput } from "../../ui-components/AlertInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
-interface ILoginForm {
+import { AlertInput } from "../../ui-components/AlertInput";
+// import { useLogin } from "./hooks/useLogin";
+
+export interface ILoginForm {
     email: string;
     password: string;
 }
@@ -24,7 +29,12 @@ const Login = () => {
         resolver: yupResolver(loginSchema)
     });
 
+    // const [loginData, setLoginData] = useState<ILoginForm | undefined>(undefined)
+    // const { isLoggingIn, loginError } = useLogin(loginData)
+    const [isLoading, setIsLoading] = useState(false)
+
     const handleLogin = (data: ILoginForm) => {
+        setIsLoading(true)
         console.log('>>', data);
     };
 
@@ -64,12 +74,23 @@ const Login = () => {
                         )}
                     </div>
                     <div className="mt-6">
-                        <button
-                            type="submit"
-                            className="w-full bg-sky-700 rounded text-white p-4"
-                        >
-                            Login
-                        </button>
+                        {
+                            isLoading ? (
+                                <span role="progressbar">
+                                    <FontAwesomeIcon
+                                        icon={faSpinner}
+                                        className="animate-spin"
+                                    />
+                                </span>
+                            ) : (
+                                <button
+                                    type="submit"
+                                    className="w-full bg-sky-700 rounded text-white p-4"
+                                >
+                                    Login
+                                </button>
+                            )
+                        }
                     </div>
                 </form>
             </div>

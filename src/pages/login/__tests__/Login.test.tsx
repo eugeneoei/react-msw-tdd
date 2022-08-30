@@ -34,3 +34,19 @@ test("should show required error message for respective form fields when form is
     expect(loginErrorMessage).toBeInTheDocument();
     expect(passwordErrorMessage).toBeInTheDocument();
 });
+
+test("should show spinner when form is submitted with valid field values", async () => {
+    render(<Login />);
+
+    const emailInput = screen.getByRole("textbox", { name: /email/i });
+    const passwordInput = screen.getByLabelText(/password/i);
+    const loginButton = screen.getByRole("button", { name: /login/i });
+
+    await userEvent.type(emailInput, "tony.start@avengers.com");
+    await userEvent.type(passwordInput, "password1");
+    userEvent.click(loginButton);
+
+    const spinner = await screen.findByRole("progressbar");
+
+    expect(spinner).toBeInTheDocument();
+});
