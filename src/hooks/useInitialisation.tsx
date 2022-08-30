@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { UserProfile } from '../interfaces/userProfile'
 
-export interface UserProfile {
-    firstName: string;
-    lastName: string;
-    email: string;
-    avatar: string;
-}
+// export interface UserProfile {
+//     firstName: string;
+//     lastName: string;
+//     email: string;
+//     avatar: string;
+// }
 
 interface useInitialisationResponse {
     user?: UserProfile | undefined;

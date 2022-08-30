@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { UserProfile } from "../hooks/useInitialisation";
+import { UserProfile } from "../interfaces/userProfile";
 
 export interface ILoggedInUserContext {
     loggedInUser: UserProfile | undefined;

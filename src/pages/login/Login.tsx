@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import { AlertInput } from "../../ui-components/AlertInput";
-// import { useLogin } from "./hooks/useLogin";
+import { useLogin } from "./hooks/useLogin";
 
 export interface ILoginForm {
     email: string;
@@ -30,11 +30,13 @@ const Login = () => {
     });
 
     // const [loginData, setLoginData] = useState<ILoginForm | undefined>(undefined)
-    // const { isLoggingIn, loginError } = useLogin(loginData)
-    const [isLoading, setIsLoading] = useState(false)
+    // const [email, setEmail] = useState("")
+    const { user, login, isLoginLoading, loginError } = useLogin()
+    // const [isLoading, setIsLoading] = useState(false)
 
     const handleLogin = (data: ILoginForm) => {
-        setIsLoading(true)
+        // setIsLoading(true)
+        login(data.email, data.password)
         console.log('>>', data);
     };
 
@@ -75,7 +77,7 @@ const Login = () => {
                     </div>
                     <div className="mt-6">
                         {
-                            isLoading ? (
+                            isLoginLoading ? (
                                 <span role="progressbar">
                                     <FontAwesomeIcon
                                         icon={faSpinner}
