@@ -8,7 +8,7 @@ import {
 describe("useLoggedInUserContext", () => {
 
     describe("loggedInUser", () => {
-        it("should be undefined on load", async () => {
+        it("shoulda be undefined on load", async () => {
             let loggedInUser;
             const TestComponent = () => {
                 const context = useLoggedInUser();

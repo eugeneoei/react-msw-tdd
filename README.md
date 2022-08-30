@@ -36,3 +36,15 @@ it("should return true on load and false when initialisation completes", async (
     });
 });
 ```
+
+### Test functionality > unit testing ??
+
+<!-- Testing functionality of the main component instead of unit testing smaller components since tests on main component should already have covered the funtionality of the smaller components. Smaller components does not just refer to `jsx`, it also refers to custom hooks or contexts. -->
+
+# Important
+
+- [`AbortController`](https://axios-http.com/docs/cancellation)
+
+# Articles & References
+
+- [What do we recommend people do for elements that have no implicit role (like input[type=password])](https://github.com/testing-library/dom-testing-library/issues/567)
