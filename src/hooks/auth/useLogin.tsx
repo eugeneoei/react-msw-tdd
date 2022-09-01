@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { UserProfile } from '../../../interfaces/userProfile'
+import { UserProfile } from '../../interfaces/userProfile'
 
 interface IUseLoginResponse {
     user: UserProfile | undefined

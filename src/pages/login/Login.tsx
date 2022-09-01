@@ -6,7 +6,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { loginSchema } from "../../schemas/loginSchema";
 import { ILoginForm } from "../../interfaces/forms/loginForm";
 import { AlertInput } from "../../ui-components/AlertInput";
-import { useLogin } from "./hooks/useLogin";
+import { useLogin } from "../../hooks/auth/useLogin";
 
 const Login = () => {
     const {
