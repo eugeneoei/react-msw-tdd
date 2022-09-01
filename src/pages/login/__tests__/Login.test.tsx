@@ -22,7 +22,6 @@ test("login button should be enabled on load", () => {
 
 test("should show required error message for respective form fields when form is submitted without any values", async () => {
     render(<Login />);
-
     const loginButton = screen.getByRole("button", { name: /login/i });
     userEvent.click(loginButton);
 
@@ -37,7 +36,6 @@ test("should show required error message for respective form fields when form is
 
 test("should show spinner when form is submitted with valid field values", async () => {
     render(<Login />);
-
     const emailInput = screen.getByRole("textbox", { name: /email/i });
     const passwordInput = screen.getByLabelText(/password/i);
     const loginButton = screen.getByRole("button", { name: /login/i });
@@ -47,6 +45,21 @@ test("should show spinner when form is submitted with valid field values", async
     userEvent.click(loginButton);
 
     const spinner = await screen.findByRole("progressbar");
-
     expect(spinner).toBeInTheDocument();
+});
+
+test("should route user to home page when login is successful", async () => {
+    render(<Login />);
+    const emailInput = screen.getByRole("textbox", { name: /email/i });
+    const passwordInput = screen.getByLabelText(/password/i);
+    const loginButton = screen.getByRole("button", { name: /login/i });
+
+    await userEvent.type(emailInput, "jennie.nichols@example.com");
+    await userEvent.type(passwordInput, "jennie.nichols@example.com");
+    userEvent.click(loginButton);
+
+    const homepageHeader = await screen.findByRole("heading", {
+        name: "Hello World"
+    });
+    expect(homepageHeader).toBeInTheDocument();
 });

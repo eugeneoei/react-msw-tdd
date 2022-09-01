@@ -48,3 +48,5 @@ it("should return true on load and false when initialisation completes", async (
 # Articles & References
 
 - [What do we recommend people do for elements that have no implicit role (like input[type=password])](https://github.com/testing-library/dom-testing-library/issues/567)
+- [Common mistakes with React Testing Library](https://kentcdodds.com/blog/common-mistakes-with-react-testing-library)
+- [Pause msw response](https://stackoverflow.com/questions/71182668/how-to-pause-the-mock-service-worker-for-testing-the-intermediate-state-in-reac)

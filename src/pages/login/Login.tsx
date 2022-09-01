@@ -21,10 +21,18 @@ const Login = () => {
 
     const handleLogin = (data: ILoginForm) => {
         login(data.email, data.password)
-        console.log('>>', data);
     };
 
     // console.log(errors);
+    // if (user) {
+    //     console.log(user)
+    // }
+
+    if (user) {
+        return (
+            <h1>Hello World</h1>
+        )
+    }
 
     return (
         <div className="my-12 mx-auto max-w-sm">

@@ -1,7 +1,7 @@
 import { renderHook, waitFor } from "@testing-library/react";
 import { rest } from "msw";
 import { server } from "../../msw/browser";
-import { useInitialisation, UserProfile } from "../useInitialisation";
+import { useInitialisation } from "../useInitialisation";
 
 describe("useInitialisation hook", () => {
     describe("isLoading", () => {
@@ -18,7 +18,7 @@ describe("useInitialisation hook", () => {
 
     describe("user", () => {
         it("should return undefined on load and user profile when initialisation completes", async () => {
-            const expected: UserProfile = {
+            const expected = {
                 firstName: "Jennie",
                 lastName: "Nichols",
                 email: "jennie.nichols@example.com",
@@ -44,9 +44,7 @@ describe("useInitialisation hook", () => {
                     (req, res, ctx) => {
                         return res(
                             ctx.status(400),
-                            ctx.json({
-                                message: "An error occurred."
-                            })
+                            ctx.text("An error occurred.")
                         );
                     }
                 )

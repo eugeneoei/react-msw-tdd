@@ -28,7 +28,8 @@ export const useInitialisation = (): useInitialisationResponse => {
                 );
                 setUser(response.data);
             } catch (error: any) {
-                setErrorMessage(error.response.data.message);
+                // console.log(error)
+                setErrorMessage(error.response.data);
             } finally {
                 setIsLoading(false);
             }
