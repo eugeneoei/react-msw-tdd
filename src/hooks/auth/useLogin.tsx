@@ -15,7 +15,7 @@ const useLogin = (): IUseLoginResponse => {
     const [user, setUser] = useState<UserProfile | undefined>(undefined);
 
     const login = async (email: string, password: string) => {
-        console.log("useLogin hook loggin in function");
+        // console.log("useLogin hook loggin in function");
         setIsLoginLoading(true);
 
         try {

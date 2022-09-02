@@ -36,7 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --runInBand",
     "eject": "react-scripts eject",
     "start:json-server": "json-server-auth --watch ./json-server/db.json --port 8080",
     "test:coverage": "npm test -- --coverage",

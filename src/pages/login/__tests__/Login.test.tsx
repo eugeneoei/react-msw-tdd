@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { Login } from "../Login";
 
 test("should display email and password input fields", () => {
-    render(<Login />);
+    render(<Login loggedInUser={undefined}/>);
 
     const emailInput = screen.getByRole("textbox", { name: /email/i });
     const passwordInput = screen.getByLabelText(/password/i);
@@ -13,7 +13,7 @@ test("should display email and password input fields", () => {
 });
 
 test("login button should be enabled on load", () => {
-    render(<Login />);
+    render(<Login loggedInUser={undefined}/>);
 
     const loginButton = screen.getByRole("button", { name: /login/i });
 
@@ -21,7 +21,7 @@ test("login button should be enabled on load", () => {
 });
 
 test("should show required error message for respective form fields when form is submitted without any values", async () => {
-    render(<Login />);
+    render(<Login loggedInUser={undefined}/>);
     const loginButton = screen.getByRole("button", { name: /login/i });
     userEvent.click(loginButton);
 
@@ -35,7 +35,7 @@ test("should show required error message for respective form fields when form is
 });
 
 test("should show spinner when form is submitted with valid field values", async () => {
-    render(<Login />);
+    render(<Login loggedInUser={undefined}/>);
     const emailInput = screen.getByRole("textbox", { name: /email/i });
     const passwordInput = screen.getByLabelText(/password/i);
     const loginButton = screen.getByRole("button", { name: /login/i });
@@ -49,7 +49,7 @@ test("should show spinner when form is submitted with valid field values", async
 });
 
 test("should route user to home page when login is successful", async () => {
-    render(<Login />);
+    render(<Login loggedInUser={undefined}/>);
     const emailInput = screen.getByRole("textbox", { name: /email/i });
     const passwordInput = screen.getByLabelText(/password/i);
     const loginButton = screen.getByRole("button", { name: /login/i });

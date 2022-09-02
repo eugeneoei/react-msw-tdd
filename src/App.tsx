@@ -5,9 +5,10 @@ import { useInitialisation } from "./hooks/useInitialisation";
 import { Login } from "./pages/login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/home/Home";
+import { Page } from "./ui-components/layouts/Page";
 
 const App = () => {
-    const { user, isLoading, errorMessage } = useInitialisation();
+    const { user, isLoading, serverError } = useInitialisation();
 
     if (isLoading) {
         return (
@@ -22,11 +23,11 @@ const App = () => {
         );
     }
 
-    if (errorMessage) {
+    if (serverError) {
         return (
             <div role="alert">
                 <FontAwesomeIcon icon={faWarning} />
-                <span>{errorMessage}</span>
+                <span>{serverError}</span>
             </div>
         );
     }
@@ -34,8 +35,10 @@ const App = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route index element={<Home />} />
-                <Route path="login" element={<Login />} />
+                <Route path="login" element={<Login loggedInUser={user}/>} />
+                <Route element={<Page user={user}/>}>
+                    <Route index element={<Home />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );

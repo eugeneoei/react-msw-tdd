@@ -7,7 +7,7 @@ import { rest } from "msw";
 import { server } from "./msw/browser";
 import App from "./App";
 
-test("spinner should display on load and disappear when initialisation process completes", async () => {
+test("spinner should display on load and disappear when user initialisation process completes", async () => {
     render(<App />);
     let spinner;
     spinner = screen.getByRole("progressbar");
@@ -17,10 +17,15 @@ test("spinner should display on load and disappear when initialisation process c
     expect(spinner).not.toBeInTheDocument();
 });
 
-test("error should not exist on load and exist only when error does not return undefined", async () => {
+test("error should not exist on load and exist only when error does not return undefined upon user initialisation completes", async () => {
     server.use(
         rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
-            return res(ctx.status(400), ctx.text("An error occurred."));
+            return res(
+                ctx.status(500),
+                ctx.json({
+                    message: "An error occurred."
+                })
+            );
         })
     );
 
@@ -39,11 +44,28 @@ test("error should not exist on load and exist only when error does not return u
     expect(errorMessage).toBeInTheDocument();
 });
 
-test('should display "done initialising" message after initialisation process completes', async () => {
+test("should redirect user to login page if user initialisation fails", async () => {
+    server.use(
+        rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
+            return res(
+                ctx.status(400),
+                ctx.json({
+                    message: "Session has expired."
+                })
+            );
+        })
+    );
     render(<App />);
 
-    const header = await screen.findByRole("heading", {
-        name: "Testing Library with React"
+    const login = await screen.findByRole("heading", {
+        name: "Login"
     });
-    expect(header).toBeInTheDocument();
+    expect(login).toBeInTheDocument();
+});
+
+test("should display navbar if user initialisation is successful", async () => {
+    render(<App />);
+
+    const navigation = await screen.findByRole("navigation");
+    expect(navigation).toBeInTheDocument();
 });

@@ -7,8 +7,14 @@ import { loginSchema } from "../../schemas/loginSchema";
 import { ILoginForm } from "../../interfaces/forms/loginForm";
 import { AlertInput } from "../../ui-components/AlertInput";
 import { useLogin } from "../../hooks/auth/useLogin";
+import { UserProfile } from "../../interfaces/userProfile";
+import { Navigate } from "react-router-dom";
 
-const Login = () => {
+interface ILoggedInUser {
+    loggedInUser: UserProfile | undefined
+}
+
+const Login = ({ loggedInUser} : ILoggedInUser) => {
     const {
         register,
         handleSubmit,
@@ -27,6 +33,12 @@ const Login = () => {
     // if (user) {
     //     console.log(user)
     // }
+
+    if(loggedInUser) {
+        return (
+            <Navigate replace to="/" />
+        )
+    }
 
     if (user) {
         return (

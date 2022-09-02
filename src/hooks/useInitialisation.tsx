@@ -2,23 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { UserProfile } from '../interfaces/userProfile'
 
-// export interface UserProfile {
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     avatar: string;
-// }
-
 interface useInitialisationResponse {
     user?: UserProfile | undefined;
     isLoading: boolean;
-    errorMessage?: string | undefined;
+    serverError?: string | undefined;
 }
 
 export const useInitialisation = (): useInitialisationResponse => {
     const [user, setUser] = useState<UserProfile | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
+    const [serverError, setServerError] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         const getUser = async () => {
@@ -28,8 +21,9 @@ export const useInitialisation = (): useInitialisationResponse => {
                 );
                 setUser(response.data);
             } catch (error: any) {
-                // console.log(error)
-                setErrorMessage(error.response.data);
+                if (error.response.status >= 500) {
+                    setServerError(error.response.data.message);
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -37,5 +31,5 @@ export const useInitialisation = (): useInitialisationResponse => {
         getUser();
     }, []);
 
-    return { user, isLoading, errorMessage };
+    return { user, isLoading, serverError };
 };
