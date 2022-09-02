@@ -19,15 +19,9 @@ test("spinner should display on load and disappear when initialisation process c
 
 test("error should not exist on load and exist only when error does not return undefined", async () => {
     server.use(
-        rest.get(
-            `${process.env.REACT_APP_API}/auth`,
-            (req, res, ctx) => {
-                return res(
-                    ctx.status(400),
-                    ctx.text("An error occurred.")
-                );
-            }
-        )
+        rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
+            return res(ctx.status(400), ctx.text("An error occurred."));
+        })
     );
 
     render(<App />);
@@ -48,6 +42,8 @@ test("error should not exist on load and exist only when error does not return u
 test('should display "done initialising" message after initialisation process completes', async () => {
     render(<App />);
 
-    const message = await screen.findByText(/done initialising/i);
-    expect(message).toBeInTheDocument();
+    const header = await screen.findByRole("heading", {
+        name: "Testing Library with React"
+    });
+    expect(header).toBeInTheDocument();
 });

@@ -3,6 +3,8 @@ import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
 import { useInitialisation } from "./hooks/useInitialisation";
 
 import { Login } from "./pages/login/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from "./pages/home/Home";
 
 const App = () => {
     const { user, isLoading, errorMessage } = useInitialisation();
@@ -30,10 +32,12 @@ const App = () => {
     }
 
     return (
-        <>
-            <p>done initialising</p>
-            <Login />
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route index element={<Home />} />
+                <Route path="login" element={<Login />} />
+            </Routes>
+        </BrowserRouter>
     );
 };
 
