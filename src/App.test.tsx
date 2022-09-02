@@ -17,7 +17,7 @@ test("spinner should display on load and disappear when user initialisation proc
     expect(spinner).not.toBeInTheDocument();
 });
 
-test("error should not exist on load and exist only when error does not return undefined upon user initialisation completes", async () => {
+test("error should not exist on load and exist only when server error", async () => {
     server.use(
         rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
             return res(
