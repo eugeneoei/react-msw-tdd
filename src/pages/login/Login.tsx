@@ -7,14 +7,16 @@ import { loginSchema } from "../../schemas/loginSchema";
 import { ILoginForm } from "../../interfaces/forms/loginForm";
 import { AlertInput } from "../../ui-components/AlertInput";
 import { useLogin } from "../../hooks/auth/useLogin";
-import { UserProfile } from "../../interfaces/userProfile";
+// import { UserProfile } from "../../interfaces/userProfile";
 import { Navigate } from "react-router-dom";
 
-interface ILoggedInUser {
-    loggedInUser: UserProfile | undefined
-}
+import { useLoggedInUser } from "../../contexts/useLoggedInUser";
 
-const Login = ({ loggedInUser} : ILoggedInUser) => {
+// interface ILoggedInUser {
+//     loggedInUser: UserProfile | undefined
+// }
+
+const Login = () => {
     const {
         register,
         handleSubmit,
@@ -23,10 +25,12 @@ const Login = ({ loggedInUser} : ILoggedInUser) => {
         resolver: yupResolver(loginSchema)
     });
 
-    const { user, login, isLoginLoading, loginError } = useLogin()
+    const { login, isLoginLoading, loginError } = useLogin()
+    const { loggedInUser, updateUser } = useLoggedInUser()
 
-    const handleLogin = (data: ILoginForm) => {
-        login(data.email, data.password)
+    const handleLogin = async (data: ILoginForm) => {
+        const user = await login(data.email, data.password)
+        updateUser(user)
     };
 
     // console.log(errors);
@@ -40,11 +44,11 @@ const Login = ({ loggedInUser} : ILoggedInUser) => {
         )
     }
 
-    if (user) {
-        return (
-            <h1>Hello World</h1>
-        )
-    }
+    // if (user) {
+    //     return (
+    //         <h1>Hello World</h1>
+    //     )
+    // }
 
     return (
         <div className="my-12 mx-auto max-w-sm">

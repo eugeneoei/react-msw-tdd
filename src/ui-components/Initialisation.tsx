@@ -3,8 +3,13 @@ import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
 // import { useInitialisation } from "../hooks/useInitialisation";
 
 import { useLoggedInUser } from "../contexts/useLoggedInUser";
+import { ReactNode } from "react";
 
-const Initialisation = () => {
+interface IInitialisation {
+    children: ReactNode;
+  };
+
+const Initialisation = ({ children } : IInitialisation) => {
     // const { user, isLoading, serverError } = useInitialisation();
     const { isLoading, serverError } = useLoggedInUser()
 
@@ -29,6 +34,8 @@ const Initialisation = () => {
             </div>
         );
     }
+
+    return <>{children}</>
 }
 
 export { Initialisation }

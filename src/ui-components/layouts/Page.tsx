@@ -1,14 +1,17 @@
 import { Outlet } from "react-router-dom";
-import { UserProfile } from "../../interfaces/userProfile";
+// import { UserProfile } from "../../interfaces/userProfile";
 import { Navigate } from "react-router-dom";
+import { useLoggedInUser } from "../../contexts/useLoggedInUser";
 
-interface IUser {
-    user: UserProfile | undefined
-}
+// interface IUser {
+//     user: UserProfile | undefined
+// }
 
-const Page = ({ user }: IUser) => {
+const Page = () => {
 
-    if (user) {
+    const { loggedInUser } = useLoggedInUser()
+
+    if (loggedInUser) {
         return (
             <div>
                 <nav>My Navbar</nav>

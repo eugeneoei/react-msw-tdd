@@ -32,7 +32,7 @@ const LoggedInUserProvider = ({ children }: { children: ReactNode }) => {
     };
 
     useEffect(() => {
-        const getUser = async () => {
+        const initialiseUser = async () => {
             try {
                 const response = await axios.get(
                     `${process.env.REACT_APP_API}/auth`
@@ -47,7 +47,7 @@ const LoggedInUserProvider = ({ children }: { children: ReactNode }) => {
                 setIsLoading(false);
             }
         };
-        getUser();
+        initialiseUser();
     }, []);
 
     const value = {
