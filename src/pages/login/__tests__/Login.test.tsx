@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { LoggedInUserProvider } from "../../../contexts/useLoggedInUser";
 import { Login } from "../Login";
-import { Page } from "../../../components/layouts/Page";
+import { PageLayout } from "../../../components/layouts/PageLayout";
 import { Home } from "../../home/Home";
 
 const LoginComponentWithWrapper = () => (
@@ -14,7 +14,7 @@ const LoginComponentWithWrapper = () => (
         <BrowserRouter>
             <Routes>
                 <Route path="login" element={<Login />} />
-                <Route element={<Page />}>
+                <Route element={<PageLayout />}>
                     <Route index element={<Home />} />
                 </Route>
             </Routes>
