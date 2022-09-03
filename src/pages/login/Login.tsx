@@ -6,7 +6,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import { loginSchema } from "../../schemas/loginSchema";
 import { ILoginForm } from "../../interfaces/forms/loginForm";
-import { AlertInput } from "../../ui-components/AlertInput";
+import { AlertInput } from "../../components/AlertInput";
 import { useLogin } from "../../hooks/auth/useLogin";
 import { useLoggedInUser } from "../../contexts/useLoggedInUser";
 

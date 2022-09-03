@@ -6,7 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { LoggedInUserProvider } from "../../../contexts/useLoggedInUser";
 import { Login } from "../Login";
-import { Page } from "../../../ui-components/layouts/Page";
+import { Page } from "../../../components/layouts/Page";
 import { Home } from "../../home/Home";
 
 const LoginComponentWithWrapper = () => (
