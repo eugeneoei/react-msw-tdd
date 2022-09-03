@@ -95,3 +95,34 @@ test("should route user to home page when login is successful", async () => {
     const navbar = await screen.findByRole("navigation");
     expect(navbar).toBeInTheDocument();
 });
+
+test("should show error message when login is not successful", async () => {
+    server.use(
+        rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
+            return res(
+                ctx.status(400),
+                ctx.json({
+                    message: "Session has expired."
+                })
+            );
+        }),
+        rest.post(`${process.env.REACT_APP_API}/login`, (req, res, ctx) => {
+            return res(
+                ctx.status(400),
+                ctx.text("Invalid email or password.")
+            );
+        })
+    );
+    render(<LoginComponentWithWrapper />);
+
+    const emailInput = screen.getByRole("textbox", { name: /email/i });
+    const passwordInput = screen.getByLabelText(/password/i);
+    const loginButton = screen.getByRole("button", { name: /login/i });
+
+    await userEvent.type(emailInput, "jennie.nichols@example.com");
+    await userEvent.type(passwordInput, "jennie.nichols@example.com");
+    userEvent.click(loginButton);
+
+    const error = await screen.findByRole("alert");
+    expect(error).toBeInTheDocument();
+});

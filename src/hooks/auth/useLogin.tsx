@@ -10,7 +10,7 @@ interface IUseLoginResponse {
 
 const useLogin = (): IUseLoginResponse => {
     const [isLoginLoading, setIsLoginLoading] = useState(false);
-    const [loginError] = useState<string | undefined>(undefined);
+    const [loginError, setLoginError] = useState<string | undefined>(undefined);
 
     const login = async (email: string, password: string) => {
         setIsLoginLoading(true);
@@ -22,10 +22,11 @@ const useLogin = (): IUseLoginResponse => {
                     password
                 }
             );
-            setIsLoginLoading(false);
             return response.data
         } catch (error) {
-            console.log(error.response.data)
+            setLoginError(error.response.data)
+        } finally {
+            setIsLoginLoading(false);
         }
     };
 

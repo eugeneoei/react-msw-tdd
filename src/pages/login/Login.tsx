@@ -37,6 +37,11 @@ const Login = () => {
         <div className="my-12 mx-auto max-w-sm">
             <div className="shadow-2xl bg-slate-100 p-12 rounded-xl">
                 <h3 className="text-xl text-center font-bold tracking-wider">Login</h3>
+                {
+                    loginError && !isLoginLoading && (
+                        <div role="alert">{loginError}</div>
+                    )
+                }
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="mt-4">
                         <label htmlFor="email" className="block">
