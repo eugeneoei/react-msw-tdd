@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { Navigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -7,14 +8,7 @@ import { loginSchema } from "../../schemas/loginSchema";
 import { ILoginForm } from "../../interfaces/forms/loginForm";
 import { AlertInput } from "../../ui-components/AlertInput";
 import { useLogin } from "../../hooks/auth/useLogin";
-// import { UserProfile } from "../../interfaces/userProfile";
-import { Navigate } from "react-router-dom";
-
 import { useLoggedInUser } from "../../contexts/useLoggedInUser";
-
-// interface ILoggedInUser {
-//     loggedInUser: UserProfile | undefined
-// }
 
 const Login = () => {
     const {
@@ -33,22 +27,11 @@ const Login = () => {
         updateUser(user)
     };
 
-    // console.log(errors);
-    // if (user) {
-    //     console.log(user)
-    // }
-
     if(loggedInUser) {
         return (
             <Navigate replace to="/" />
         )
     }
-
-    // if (user) {
-    //     return (
-    //         <h1>Hello World</h1>
-    //     )
-    // }
 
     return (
         <div className="my-12 mx-auto max-w-sm">

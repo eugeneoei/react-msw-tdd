@@ -5,25 +5,15 @@ import { UserProfile } from "../interfaces/userProfile";
 export interface ILoggedInUserContext {
     loggedInUser: UserProfile | undefined;
     updateUser: (user: UserProfile) => void;
-
-
-    // user?: UserProfile | undefined;
     isLoading: boolean;
     serverError?: string | undefined;
 }
-
-// interface useInitialisationResponse {
-//     user?: UserProfile | undefined;
-//     isLoading: boolean;
-//     serverError?: string | undefined;
-// }
 
 const LoggedInUserContext = createContext<ILoggedInUserContext | undefined>(undefined);
 
 const LoggedInUserProvider = ({ children }: { children: ReactNode }) => {
     const [loggedInUser, setLoggedInUser] = useState<UserProfile | undefined>(undefined);
 
-    // const [user, setUser] = useState<UserProfile | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [serverError, setServerError] = useState<string | undefined>(undefined);
 
@@ -38,7 +28,6 @@ const LoggedInUserProvider = ({ children }: { children: ReactNode }) => {
                     `${process.env.REACT_APP_API}/auth`
                 );
                 updateUser(response.data)
-                // setUser(response.data);
             } catch (error: any) {
                 if (error.response.status >= 500) {
                     setServerError(error.response.data.message);

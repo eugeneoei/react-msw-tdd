@@ -1,17 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
-// import { useInitialisation } from "../hooks/useInitialisation";
 
 import { useLoggedInUser } from "../contexts/useLoggedInUser";
 import { ReactNode } from "react";
 
 interface IInitialisation {
     children: ReactNode;
-  };
+}
 
-const Initialisation = ({ children } : IInitialisation) => {
-    // const { user, isLoading, serverError } = useInitialisation();
-    const { isLoading, serverError } = useLoggedInUser()
+const Initialisation = ({ children }: IInitialisation) => {
+    const { isLoading, serverError } = useLoggedInUser();
 
     if (isLoading) {
         return (
@@ -35,7 +33,7 @@ const Initialisation = ({ children } : IInitialisation) => {
         );
     }
 
-    return <>{children}</>
-}
+    return <>{children}</>;
+};
 
-export { Initialisation }
+export { Initialisation };

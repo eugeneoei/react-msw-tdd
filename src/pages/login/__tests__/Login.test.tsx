@@ -8,8 +8,6 @@ import { LoggedInUserProvider } from "../../../contexts/useLoggedInUser";
 import { Login } from "../Login";
 import { Page } from "../../../ui-components/layouts/Page";
 import { Home } from "../../home/Home";
-// import { act } from "react-dom/test-utils";
-// import { wait } from "@testing-library/user-event/dist/types/utils";
 
 const LoginComponentWithWrapper = () => (
     <LoggedInUserProvider>
