@@ -1,6 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
-import { useInitialisation } from "./hooks/useInitialisation";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
+// import { useInitialisation } from "./hooks/useInitialisation";
 
 import { Login } from "./pages/login/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
