@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/home/Home";
 import { Page } from "./ui-components/layouts/Page";
 
+import { LoggedInUserProvider } from "./contexts/useLoggedInUser";
+
 const App = () => {
     const { user, isLoading, serverError } = useInitialisation();
 
@@ -33,14 +35,16 @@ const App = () => {
     }
 
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="login" element={<Login loggedInUser={user}/>} />
-                <Route element={<Page user={user}/>}>
-                    <Route index element={<Home />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <LoggedInUserProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="login" element={<Login loggedInUser={user}/>} />
+                    <Route element={<Page user={user}/>}>
+                        <Route index element={<Home />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </LoggedInUserProvider>
     );
 };
 
