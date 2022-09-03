@@ -8,7 +8,7 @@ import { loginSchema } from "../../schemas/loginSchema";
 import { ILoginForm } from "../../interfaces/forms/loginForm";
 import { AlertInput } from "../../components/ui/AlertInput";
 import { useLogin } from "../../hooks/auth/useLogin";
-import { useLoggedInUser } from "../../contexts/useLoggedInUser";
+import { useLoggedInUser } from "../../contexts/auth/useLoggedInUser";
 
 const Login = () => {
     const {

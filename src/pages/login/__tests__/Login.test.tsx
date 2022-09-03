@@ -4,7 +4,7 @@ import { rest } from "msw";
 import { server } from "../../../msw/browser";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { LoggedInUserProvider } from "../../../contexts/useLoggedInUser";
+import { LoggedInUserProvider } from "../../../contexts/auth/useLoggedInUser";
 import { Login } from "../Login";
 import { PageLayout } from "../../../components/layouts/PageLayout";
 import { Home } from "../../home/Home";

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import axios from "axios";
-import { UserProfile } from "../interfaces/userProfile";
+import { UserProfile } from "../../interfaces/userProfile";
 
 export interface ILoggedInUserContext {
     loggedInUser: UserProfile | undefined;

@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import { useLoggedInUser } from "../../contexts/useLoggedInUser";
+import { useLoggedInUser } from "../../contexts/auth/useLoggedInUser";
 
 const PageLayout = () => {
     const { loggedInUser } = useLoggedInUser();

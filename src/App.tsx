@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/home/Home";
 import {  PageLayout } from "./components/layouts/PageLayout";
 
-import { LoggedInUserProvider } from "./contexts/useLoggedInUser";
+import { LoggedInUserProvider } from "./contexts/auth/useLoggedInUser";
 import { Initialisation } from "./components/layouts/Initialisation";
 
 const App = () => {
