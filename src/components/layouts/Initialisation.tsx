@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faWarning } from "@fortawesome/free-solid-svg-icons";
 
-import { useLoggedInUser } from "../contexts/useLoggedInUser";
+import { useLoggedInUser } from "../../contexts/useLoggedInUser";
 import { ReactNode } from "react";
 
 interface IInitialisation {

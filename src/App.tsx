@@ -4,7 +4,7 @@ import { Home } from "./pages/home/Home";
 import {  PageLayout } from "./components/layouts/PageLayout";
 
 import { LoggedInUserProvider } from "./contexts/useLoggedInUser";
-import { Initialisation } from "./components/Initialisation";
+import { Initialisation } from "./components/layouts/Initialisation";
 
 const App = () => {
     return (
