@@ -9,6 +9,7 @@ import { ILoginForm } from "../../interfaces/forms/loginForm";
 import { AlertInput } from "../../components/ui/AlertInput";
 import { useLogin } from "../../hooks/auth/useLogin";
 import { useLoggedInUser } from "../../contexts/auth/useLoggedInUser";
+import { AlertSnackbar } from "../../components/ui/AlertSnackbar";
 
 const Login = () => {
     const {
@@ -39,7 +40,7 @@ const Login = () => {
                 <h3 className="text-xl text-center font-bold tracking-wider">Login</h3>
                 {
                     loginError && !isLoginLoading && (
-                        <div role="alert">{loginError}</div>
+                        <AlertSnackbar message={loginError} />
                     )
                 }
                 <form onSubmit={handleSubmit(handleLogin)}>
