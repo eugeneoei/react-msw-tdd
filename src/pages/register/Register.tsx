@@ -121,7 +121,3 @@ const Register = () => {
 };
 
 export { Register };
-    function login(email: any, password: any) {
-        throw new Error("Function not implemented.");
-    }
-

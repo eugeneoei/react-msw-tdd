@@ -6,7 +6,13 @@ const registerSchema = yup
         lastName: yup.string().required("Last name is required."),
         email: yup.string().required("Email is required."),
         password: yup.string().required("Password is required."),
-        confirmPassword: yup.string().required("Confirm password is required.")
+        confirmPassword: yup
+            .string()
+            .required("Confirm password is required.")
+            .oneOf(
+                [yup.ref("password")],
+                "Password and confirm password do not match."
+            )
     })
     .required();
 

@@ -52,3 +52,24 @@ test("should show required error message for respective form fields when form is
     expect(passwordErrorMessage).toBeInTheDocument();
     expect(confirmPasswordErrorMessage).toBeInTheDocument();
 });
+
+test("should show password and confirm password do not match error message when form is submitted and values do not match", async () => {
+    render(<Register />);
+
+    const firstNameInput = screen.getByRole("textbox", { name: /first name/i });
+    const lastNameInput = screen.getByRole("textbox", { name: /last name/i });
+    const emailInput = screen.getByRole("textbox", { name: /email/i });
+    const passwordInput = screen.getByLabelText("Password");
+    const confirmPasswordInput = screen.getByLabelText("Confirm Password");
+    const registerButton = screen.getByRole("button", { name: /register/i });
+
+    await userEvent.type(firstNameInput, "Tony");
+    await userEvent.type(lastNameInput, "Stark");
+    await userEvent.type(emailInput, "tony.stark@email.com");
+    await userEvent.type(passwordInput, "asdf*&%^asdf");
+    await userEvent.type(confirmPasswordInput, "12345");
+    userEvent.click(registerButton);
+
+    const passwordsDoNotMatchErrorMessage = await screen.findByText("Password and confirm password do not match.");
+    expect(passwordsDoNotMatchErrorMessage).toBeInTheDocument();
+})
