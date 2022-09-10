@@ -23,9 +23,7 @@ test("error should not exist on load and exist only when server error", async ()
             return res(
                 ctx.status(500),
                 ctx.delay(100),
-                ctx.json({
-                    message: "An error occurred."
-                })
+                ctx.text("An error occurred.")
             );
         })
     );
@@ -50,9 +48,7 @@ test("should redirect user to login page if user initialisation fails", async ()
         rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
             return res(
                 ctx.status(400),
-                ctx.json({
-                    message: "Session has expired."
-                })
+                ctx.text("Session has expired.")
             );
         })
     );

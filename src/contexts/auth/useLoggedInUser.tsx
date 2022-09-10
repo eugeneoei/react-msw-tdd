@@ -30,7 +30,7 @@ const LoggedInUserProvider = ({ children }: { children: ReactNode }) => {
                 updateUser(response.data)
             } catch (error: any) {
                 if (error.response.status >= 500) {
-                    setServerError(error.response.data.message);
+                    setServerError(error.response.data);
                 }
             } finally {
                 setIsLoading(false);

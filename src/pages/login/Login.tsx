@@ -28,6 +28,8 @@ const Login = () => {
         updateUser(user)
     };
 
+    // console.log(errors)
+
     if(loggedInUser) {
         return (
             <Navigate replace to="/" />
@@ -51,6 +53,7 @@ const Login = () => {
                         <input
                             type="email"
                             id="email"
+                            defaultValue=""
                             {...register("email")}
                             className="block w-full mt-2 p-2 rounded"
                         />
@@ -65,6 +68,7 @@ const Login = () => {
                         <input
                             type="password"
                             id="password"
+                            defaultValue=""
                             {...register("password")}
                             className="block w-full mt-2 p-2 rounded"
                         />

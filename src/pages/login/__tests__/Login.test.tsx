@@ -8,41 +8,54 @@ import { LoggedInUserProvider } from "../../../contexts/auth/useLoggedInUser";
 import { Login } from "../Login";
 import { PageLayout } from "../../../components/layouts/PageLayout";
 import { Home } from "../../home/Home";
+import { Initialisation } from "../../../components/layouts/Initialisation";
 
 const LoginComponentWithWrapper = () => (
     <LoggedInUserProvider>
-        <BrowserRouter>
-            <Routes>
-                <Route path="login" element={<Login />} />
-                <Route element={<PageLayout />}>
-                    <Route index element={<Home />} />
-                </Route>
-            </Routes>
-        </BrowserRouter>
+        <Initialisation>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="login" element={<Login />} />
+                    <Route element={<PageLayout />}>
+                        <Route index element={<Home />} />
+                    </Route>
+                </Routes>
+            </BrowserRouter>
+        </Initialisation>
     </LoggedInUserProvider>
 );
 
-test("should display email and password input fields", () => {
+beforeEach(() => {
+    // because there is a user initialisation process,
+    // we overwrite /auth endpoint so that user gets router to /login
+    server.use(
+        rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
+            return res(ctx.status(400), ctx.text("Session has expired."));
+        })
+    );
+});
+
+test("should display email and password input fields", async () => {
     render(<LoginComponentWithWrapper />);
 
-    const emailInput = screen.getByRole("textbox", { name: /email/i });
-    const passwordInput = screen.getByLabelText(/password/i);
+    const emailInput = await screen.findByRole("textbox", { name: /email/i });
+    const passwordInput = await screen.findByLabelText(/password/i);
 
     expect(emailInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
 });
 
-test("login button should be enabled on load", () => {
+test("login button should be enabled on load", async () => {
     render(<LoginComponentWithWrapper />);
 
-    const loginButton = screen.getByRole("button", { name: /login/i });
+    const loginButton = await screen.findByRole("button", { name: /login/i });
 
     expect(loginButton).toBeEnabled();
 });
 
 test("should show required error message for respective form fields when form is submitted without any values", async () => {
     render(<LoginComponentWithWrapper />);
-    const loginButton = screen.getByRole("button", { name: /login/i });
+    const loginButton = await screen.findByRole("button", { name: /login/i });
     userEvent.click(loginButton);
 
     const loginErrorMessage = await screen.findByText("Email is required.");
@@ -55,25 +68,12 @@ test("should show required error message for respective form fields when form is
 });
 
 test("should show spinner when form is submitted with valid field values", async () => {
-    // because implementation runs user initialisation process on load
-    // therefore overwrite msw's /auth route for initialisation process to fail
-    // so login page can render
-    server.use(
-        rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
-            return res(
-                ctx.status(400),
-                ctx.json({
-                    message: "Session has expired."
-                })
-            );
-        })
-    );
     render(<LoginComponentWithWrapper />);
-    const emailInput = screen.getByRole("textbox", { name: /email/i });
-    const passwordInput = screen.getByLabelText(/password/i);
-    const loginButton = screen.getByRole("button", { name: /login/i });
+    const emailInput = await screen.findByRole("textbox", { name: /email/i });
+    const passwordInput = await screen.findByLabelText(/password/i) as HTMLInputElement;
+    const loginButton = await screen.findByRole("button", { name: /login/i });
 
-    await userEvent.type(emailInput, "tony.start@avengers.com");
+    await userEvent.type(emailInput, "tony.stark@avengers.com");
     await userEvent.type(passwordInput, "password1");
     userEvent.click(loginButton);
 
@@ -84,9 +84,9 @@ test("should show spinner when form is submitted with valid field values", async
 test("should route user to home page when login is successful", async () => {
     render(<LoginComponentWithWrapper />);
 
-    const emailInput = screen.getByRole("textbox", { name: /email/i });
-    const passwordInput = screen.getByLabelText(/password/i);
-    const loginButton = screen.getByRole("button", { name: /login/i });
+    const emailInput = await screen.findByRole("textbox", { name: /email/i });
+    const passwordInput = await screen.findByLabelText(/password/i);
+    const loginButton = await screen.findByRole("button", { name: /login/i });
 
     await userEvent.type(emailInput, "jennie.nichols@example.com");
     await userEvent.type(passwordInput, "jennie.nichols@example.com");
@@ -98,14 +98,6 @@ test("should route user to home page when login is successful", async () => {
 
 test("should show error message when login is not successful", async () => {
     server.use(
-        rest.get(`${process.env.REACT_APP_API}/auth`, (req, res, ctx) => {
-            return res(
-                ctx.status(400),
-                ctx.json({
-                    message: "Session has expired."
-                })
-            );
-        }),
         rest.post(`${process.env.REACT_APP_API}/login`, (req, res, ctx) => {
             return res(
                 ctx.status(400),
@@ -115,9 +107,9 @@ test("should show error message when login is not successful", async () => {
     );
     render(<LoginComponentWithWrapper />);
 
-    const emailInput = screen.getByRole("textbox", { name: /email/i });
-    const passwordInput = screen.getByLabelText(/password/i);
-    const loginButton = screen.getByRole("button", { name: /login/i });
+    const emailInput = await screen.findByRole("textbox", { name: /email/i });
+    const passwordInput = await screen.findByLabelText(/password/i);
+    const loginButton = await screen.findByRole("button", { name: /login/i });
 
     await userEvent.type(emailInput, "jennie.nichols@example.com");
     await userEvent.type(passwordInput, "jennie.nichols@example.com");
