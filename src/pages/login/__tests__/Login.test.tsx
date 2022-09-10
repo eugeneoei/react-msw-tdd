@@ -9,6 +9,7 @@ import { Login } from "../Login";
 import { PageLayout } from "../../../components/layouts/PageLayout";
 import { Home } from "../../home/Home";
 import { Initialisation } from "../../../components/layouts/Initialisation";
+import { Register } from "../../register/Register";
 
 const LoginComponentWithWrapper = () => (
     <LoggedInUserProvider>
@@ -16,6 +17,7 @@ const LoginComponentWithWrapper = () => (
             <BrowserRouter>
                 <Routes>
                     <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
                     <Route element={<PageLayout />}>
                         <Route index element={<Home />} />
                     </Route>
@@ -70,7 +72,9 @@ test("should show required error message for respective form fields when form is
 test("should show spinner when form is submitted with valid field values", async () => {
     render(<LoginComponentWithWrapper />);
     const emailInput = await screen.findByRole("textbox", { name: /email/i });
-    const passwordInput = await screen.findByLabelText(/password/i) as HTMLInputElement;
+    const passwordInput = (await screen.findByLabelText(
+        /password/i
+    )) as HTMLInputElement;
     const loginButton = await screen.findByRole("button", { name: /login/i });
 
     await userEvent.type(emailInput, "tony.stark@avengers.com");
@@ -99,10 +103,7 @@ test("should route user to home page when login is successful", async () => {
 test("should show error message when login is not successful", async () => {
     server.use(
         rest.post(`${process.env.REACT_APP_API}/login`, (req, res, ctx) => {
-            return res(
-                ctx.status(400),
-                ctx.text("Invalid email or password.")
-            );
+            return res(ctx.status(400), ctx.text("Invalid email or password."));
         })
     );
     render(<LoginComponentWithWrapper />);
@@ -117,4 +118,15 @@ test("should show error message when login is not successful", async () => {
 
     const error = await screen.findByRole("alert");
     expect(error).toBeInTheDocument();
+});
+
+test("should route user to register page when link is clicked", async () => {
+    render(<LoginComponentWithWrapper />);
+    const registerLink = await screen.findByRole("link", { name: /here/i });
+    userEvent.click(registerLink);
+
+    const registerHeader = await screen.findByRole("heading", {
+        name: /register/i
+    });
+    expect(registerHeader).toBeInTheDocument();
 });

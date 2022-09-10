@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -20,31 +20,29 @@ const Login = () => {
         resolver: yupResolver(loginSchema)
     });
 
-    const { login, isLoginLoading, loginError } = useLogin()
-    const { loggedInUser, updateUser } = useLoggedInUser()
+    const { login, isLoginLoading, loginError } = useLogin();
+    const { loggedInUser, updateUser } = useLoggedInUser();
 
     const handleLogin = async (data: ILoginForm) => {
-        const user = await login(data.email, data.password)
-        updateUser(user)
+        const user = await login(data.email, data.password);
+        updateUser(user);
     };
 
     // console.log(errors)
 
-    if(loggedInUser) {
-        return (
-            <Navigate replace to="/" />
-        )
+    if (loggedInUser) {
+        return <Navigate replace to="/" />;
     }
 
     return (
         <div className="my-12 mx-auto max-w-sm">
             <div className="shadow-2xl bg-slate-100 p-12 rounded-xl">
-                <h3 className="text-xl text-center font-bold tracking-wider">Login</h3>
-                {
-                    loginError && !isLoginLoading && (
-                        <AlertSnackbar message={loginError} />
-                    )
-                }
+                <h3 className="text-xl text-center font-bold tracking-wider">
+                    Login
+                </h3>
+                {loginError && !isLoginLoading && (
+                    <AlertSnackbar message={loginError} />
+                )}
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <div className="mt-4">
                         <label htmlFor="email" className="block">
@@ -77,23 +75,25 @@ const Login = () => {
                         )}
                     </div>
                     <div className="mt-6">
-                        {
-                            isLoginLoading ? (
-                                <span role="progressbar">
-                                    <FontAwesomeIcon
-                                        icon={faSpinner}
-                                        className="animate-spin"
-                                    />
-                                </span>
-                            ) : (
-                                <button
-                                    type="submit"
-                                    className="w-full bg-sky-700 rounded text-white p-4"
-                                >
-                                    Login
-                                </button>
-                            )
-                        }
+                        {isLoginLoading ? (
+                            <span role="progressbar">
+                                <FontAwesomeIcon
+                                    icon={faSpinner}
+                                    className="animate-spin"
+                                />
+                            </span>
+                        ) : (
+                            <button
+                                type="submit"
+                                className="w-full bg-sky-700 rounded text-white p-4"
+                            >
+                                Login
+                            </button>
+                        )}
+                    </div>
+                    <div className="mt-6 text-center">
+                        Already have an account? Click{" "}
+                        <Link to="/register" className="underline hover:opacity-40">here</Link> to register an account.
                     </div>
                 </form>
             </div>

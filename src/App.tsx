@@ -5,6 +5,7 @@ import {  PageLayout } from "./components/layouts/PageLayout";
 
 import { LoggedInUserProvider } from "./contexts/auth/useLoggedInUser";
 import { Initialisation } from "./components/layouts/Initialisation";
+import { Register } from "./pages/register/Register";
 
 const App = () => {
     return (
@@ -13,6 +14,7 @@ const App = () => {
                 <BrowserRouter>
                     <Routes>
                         <Route path="login" element={<Login />} />
+                        <Route path="register" element={<Register />} />
                         <Route element={<PageLayout />}>
                             <Route index element={<Home />} />
                         </Route>
