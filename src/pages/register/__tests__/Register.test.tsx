@@ -16,3 +16,11 @@ test("should display first name, last name, email and password input fields", ()
     expect(passwordInput).toBeInTheDocument();
     expect(confirmPasswordInput).toBeInTheDocument();
 });
+
+test("register button should be enabled on load", () => {
+    render(<Register />);
+
+    const registerButton = screen.getByRole("button", { name: /register/i });
+
+    expect(registerButton).toBeEnabled();
+});

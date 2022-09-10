@@ -1,4 +1,5 @@
 import { AuthFormLayout } from "../../components/layouts/AuthFormLayout";
+import { Button } from "../../components/ui/Button";
 
 const Register = () => {
     return (
@@ -75,9 +76,11 @@ const Register = () => {
                         <AlertInput message={errors.confirmPassword.message} />
                     )} */}
                 </div>
-                {/* <div className="mt-6">
-                    {isLoginLoading ? <Spinner /> : <Button text="Login" />}
+                <div className="mt-6">
+                    {/* {isLoginLoading ? <Spinner /> : <Button text="Login" />} */}
+                    <Button text="Register" />
                 </div>
+                {/*
                 <div className="mt-6 text-center">
                     Already have an account? Click{" "}
                     <Link to="/register" className="underline hover:opacity-40">
