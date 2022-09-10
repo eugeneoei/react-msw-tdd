@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { Register } from "../Register";
 
 test("should display first name, last name, email and password input fields", () => {
@@ -23,4 +24,31 @@ test("register button should be enabled on load", () => {
     const registerButton = screen.getByRole("button", { name: /register/i });
 
     expect(registerButton).toBeEnabled();
+});
+
+test("should show required error message for respective form fields when form is submitted without any values", async () => {
+    render(<Register />);
+
+    const registerButton = screen.getByRole("button", { name: /register/i });
+    userEvent.click(registerButton);
+
+    const firstNameErrorMessage = await screen.findByText(
+        "First name is required."
+    );
+    const lastNameErrorMessage = await screen.findByText(
+        "Last name is required."
+    );
+    const emailErrorMessage = await screen.findByText("Email is required.");
+    const passwordErrorMessage = await screen.findByText(
+        "Password is required."
+    );
+    const confirmPasswordErrorMessage = await screen.findByText(
+        "Confirm password is required."
+    );
+
+    expect(firstNameErrorMessage).toBeInTheDocument();
+    expect(lastNameErrorMessage).toBeInTheDocument();
+    expect(emailErrorMessage).toBeInTheDocument();
+    expect(passwordErrorMessage).toBeInTheDocument();
+    expect(confirmPasswordErrorMessage).toBeInTheDocument();
 });
