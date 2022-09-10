@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { loginSchema } from "../../schemas/loginSchema";
-import { ILoginForm } from "../../interfaces/forms/loginForm";
+import { ILoginForm } from "../../interfaces/forms/login";
 import { AlertInput } from "../../components/ui/AlertInput";
 import { useLogin } from "../../hooks/auth/useLogin";
 import { useLoggedInUser } from "../../contexts/auth/useLoggedInUser";

@@ -73,3 +73,45 @@ test("should show password and confirm password do not match error message when 
     const passwordsDoNotMatchErrorMessage = await screen.findByText("Password and confirm password do not match.");
     expect(passwordsDoNotMatchErrorMessage).toBeInTheDocument();
 })
+
+test("should show spinner when form is submitted with valid values", async () => {
+    render(<Register />);
+
+    const firstNameInput = screen.getByRole("textbox", { name: /first name/i });
+    const lastNameInput = screen.getByRole("textbox", { name: /last name/i });
+    const emailInput = screen.getByRole("textbox", { name: /email/i });
+    const passwordInput = screen.getByLabelText("Password");
+    const confirmPasswordInput = screen.getByLabelText("Confirm Password");
+    const registerButton = screen.getByRole("button", { name: /register/i });
+
+    await userEvent.type(firstNameInput, "Tony");
+    await userEvent.type(lastNameInput, "Stark");
+    await userEvent.type(emailInput, "tony.stark@email.com");
+    await userEvent.type(passwordInput, "tony.stark@email.com");
+    await userEvent.type(confirmPasswordInput, "tony.stark@email.com");
+    userEvent.click(registerButton);
+
+    const spinner = await screen.findByRole("progressbar")
+    expect(spinner).toBeInTheDocument()
+})
+
+// test("should show error message when registration is not successful", async () => {
+//     render(<Register />);
+
+//     const firstNameInput = screen.getByRole("textbox", { name: /first name/i });
+//     const lastNameInput = screen.getByRole("textbox", { name: /last name/i });
+//     const emailInput = screen.getByRole("textbox", { name: /email/i });
+//     const passwordInput = screen.getByLabelText("Password");
+//     const confirmPasswordInput = screen.getByLabelText("Confirm Password");
+//     const registerButton = screen.getByRole("button", { name: /register/i });
+
+//     await userEvent.type(firstNameInput, "Tony");
+//     await userEvent.type(lastNameInput, "Stark");
+//     await userEvent.type(emailInput, "tony.stark@email.com");
+//     await userEvent.type(passwordInput, "tony.stark@email.com");
+//     await userEvent.type(confirmPasswordInput, "tony.stark@email.com");
+//     userEvent.click(registerButton);
+
+//     const loginHeading = await screen.findByRole("heading", { name: /login/i })
+//     expect(loginHeading).toBeInTheDocument();
+// })

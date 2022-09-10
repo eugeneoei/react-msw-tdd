@@ -19,14 +19,19 @@ export const authRoutes = [
             ctx.status(200),
             ctx.delay(100),
             ctx.json({
-                "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Implbm5pZS5uaWNob2xzQGV4YW1wbGUuY29tIiwiaWF0IjoxNjYyMDMzOTg0LCJleHAiOjE2NjIwMzc1ODQsInN1YiI6IjEifQ.ReuKemlapVBY88FMRLDkQmyHE7pwKwOKk8OGr6pYw4Y",
-                "user": {
-                    "email": "jennie.nichols@example.com",
-                    "firstName": "Jennie",
-                    "lastName": "Nichols",
-                    "id": 1
+                accessToken:
+                    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Implbm5pZS5uaWNob2xzQGV4YW1wbGUuY29tIiwiaWF0IjoxNjYyMDMzOTg0LCJleHAiOjE2NjIwMzc1ODQsInN1YiI6IjEifQ.ReuKemlapVBY88FMRLDkQmyHE7pwKwOKk8OGr6pYw4Y",
+                user: {
+                    email: "jennie.nichols@example.com",
+                    firstName: "Jennie",
+                    lastName: "Nichols",
+                    id: 1
                 }
             })
         );
     }),
-]
+
+    rest.post(`${process.env.REACT_APP_API}/register`, (req, res, ctx) => {
+        return res(ctx.status(201), ctx.delay(100));
+    })
+];

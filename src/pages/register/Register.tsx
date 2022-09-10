@@ -4,10 +4,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthFormLayout } from "../../components/layouts/AuthFormLayout";
 import { Button } from "../../components/ui/Button";
 import { registerSchema } from "../../schemas/registerSchema";
-import { IRegisterForm } from "../../interfaces/forms/registerForm";
+import { IRegisterForm } from "../../interfaces/forms/register";
 import { AlertInput } from "../../components/ui/AlertInput";
+import { Spinner } from "../../components/ui/Spinner";
+import { useRegister } from "../../hooks/auth/useRegister";
 
 const Register = () => {
+
+    const {registerUser, isRegisterLoading, registrationError } = useRegister()
 
     const {
         register,
@@ -17,9 +21,8 @@ const Register = () => {
         resolver: yupResolver(registerSchema)
     });
 
-    const handleRegister = async (data: IRegisterForm) => {
-        console.log(data)
-        // const user = await login(data.email, data.password);
+    const handleRegister = (data: IRegisterForm) => {
+        registerUser(data)
     };
 
     return (
@@ -104,8 +107,7 @@ const Register = () => {
                     )}
                 </div>
                 <div className="mt-6">
-                    {/* {isLoginLoading ? <Spinner /> : <Button text="Login" />} */}
-                    <Button text="Register" />
+                    {isRegisterLoading ? <Spinner /> : <Button text="Register" />}
                 </div>
                 {/*
                 <div className="mt-6 text-center">
