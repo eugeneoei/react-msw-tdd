@@ -1,7 +1,13 @@
+import { AuthFormLayout } from "../../components/layouts/AuthFormLayout";
+
 const Register = () => {
     return (
-        <h1>Register</h1>
-    )
-}
+        <AuthFormLayout>
+            <h3 className="text-xl text-center font-bold tracking-wider">
+                Register
+            </h3>
+        </AuthFormLayout>
+    );
+};
 
-export { Register }
+export { Register };
