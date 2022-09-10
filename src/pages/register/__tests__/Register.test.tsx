@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Register } from "../Register";
+import { rest } from "msw";
+import { server } from "../../../msw/browser";
 
 test("should display first name, last name, email and password input fields", () => {
     render(<Register />);
@@ -95,23 +97,29 @@ test("should show spinner when form is submitted with valid values", async () =>
     expect(spinner).toBeInTheDocument()
 })
 
-// test("should show error message when registration is not successful", async () => {
-//     render(<Register />);
+test("should show error message when registration is not successful", async () => {
+    server.use(
+        rest.post(`${process.env.REACT_APP_API}/register`, (req, res, ctx) => {
+            return res(ctx.status(400), ctx.text("Registration failed. Please try again."));
+        })
+    );
 
-//     const firstNameInput = screen.getByRole("textbox", { name: /first name/i });
-//     const lastNameInput = screen.getByRole("textbox", { name: /last name/i });
-//     const emailInput = screen.getByRole("textbox", { name: /email/i });
-//     const passwordInput = screen.getByLabelText("Password");
-//     const confirmPasswordInput = screen.getByLabelText("Confirm Password");
-//     const registerButton = screen.getByRole("button", { name: /register/i });
+    render(<Register />);
 
-//     await userEvent.type(firstNameInput, "Tony");
-//     await userEvent.type(lastNameInput, "Stark");
-//     await userEvent.type(emailInput, "tony.stark@email.com");
-//     await userEvent.type(passwordInput, "tony.stark@email.com");
-//     await userEvent.type(confirmPasswordInput, "tony.stark@email.com");
-//     userEvent.click(registerButton);
+    const firstNameInput = screen.getByRole("textbox", { name: /first name/i });
+    const lastNameInput = screen.getByRole("textbox", { name: /last name/i });
+    const emailInput = screen.getByRole("textbox", { name: /email/i });
+    const passwordInput = screen.getByLabelText("Password");
+    const confirmPasswordInput = screen.getByLabelText("Confirm Password");
+    const registerButton = screen.getByRole("button", { name: /register/i });
 
-//     const loginHeading = await screen.findByRole("heading", { name: /login/i })
-//     expect(loginHeading).toBeInTheDocument();
-// })
+    await userEvent.type(firstNameInput, "Tony");
+    await userEvent.type(lastNameInput, "Stark");
+    await userEvent.type(emailInput, "tony.stark@email.com");
+    await userEvent.type(passwordInput, "tony.stark@email.com");
+    await userEvent.type(confirmPasswordInput, "tony.stark@email.com");
+    userEvent.click(registerButton);
+
+    const registrationErrorAlert = await screen.findByRole("alert")
+    expect(registrationErrorAlert).toBeInTheDocument();
+})

@@ -8,6 +8,7 @@ import { IRegisterForm } from "../../interfaces/forms/register";
 import { AlertInput } from "../../components/ui/AlertInput";
 import { Spinner } from "../../components/ui/Spinner";
 import { useRegister } from "../../hooks/auth/useRegister";
+import { AlertSnackbar } from "../../components/ui/AlertSnackbar";
 
 const Register = () => {
 
@@ -30,6 +31,9 @@ const Register = () => {
             <h3 className="text-xl text-center font-bold tracking-wider">
                 Register
             </h3>
+            {registrationError && !isRegisterLoading && (
+                <AlertSnackbar message={registrationError} />
+            )}
             <form onSubmit={handleSubmit(handleRegister)}>
                 <div className="mt-4">
                     <label htmlFor="firstName" className="block">
